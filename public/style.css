@@ -1,0 +1,11 @@
+#video-container {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#video-container video {
+    width: 30%;
+    border: 1px solid gray;
+}
