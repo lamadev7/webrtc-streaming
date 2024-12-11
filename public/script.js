@@ -1,6 +1,6 @@
 let myVideoStream;
 const socket = io("/");
-const peerInstance = new Peer(undefined, { path: '/peerjs', host: '/', port: 9999 });
+const peerInstance = new Peer(undefined, { path: '/peerjs', host: 'zoom-clone-production-fd3d.up.railway.app', port: 9999 });
 const videoContainer = document.getElementById("video-container");
 
 peerInstance.on('open', (id) => {
