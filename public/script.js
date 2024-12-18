@@ -1,6 +1,19 @@
+
+console.log({a: baseUrl})
+
 let myVideoStream;
-const socket = io("/");
-const peerInstance = new Peer(undefined, { path: '/peerjs', host: '/', port: 9999 });
+
+const hostDetails = new URL(baseUrl);
+const socket = io(baseUrl);
+
+const peerConfig = {
+     path: '/peerjs', 
+     host: hostDetails.hostname,
+     ...(hostDetails?.port ? {port: hostDetails.port} : {})
+}
+console.log({hostDetails, peerConfig})
+
+const peerInstance = new Peer(undefined, peerConfig);
 const videoContainer = document.getElementById("video-container");
 
 peerInstance.on('open', (id) => {

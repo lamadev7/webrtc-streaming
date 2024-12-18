@@ -9,7 +9,16 @@ const { ExpressPeerServer } = require("peer");
 
 const app = express();
 const server = http.createServer(app);
-const io = require("socket.io")(server);
+
+const options = {
+    cors: {
+        origin: [process.env.BASE_URL],
+        methods: ["GET", "POST"]
+    },
+    transports: ["websocket", "polling"], // Allow WebSocket transport
+};
+const io = require("socket.io")(server, options);
+
 const peerServer = ExpressPeerServer(server, { debug: true });
 
 app.use(cors());
@@ -23,7 +32,7 @@ app.get("/", (req, res) => {
 
 app.get("/:roomId", (req, res) => {
     const { roomId } = req.params ?? {};
-    res.render("room", { roomId });
+    res.render("room", { roomId, baseUrl: process.env.BASE_URL});
 });
 
 
@@ -41,5 +50,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(process.env.PORT, () => {
-    console.log('Server started at port ', process.env.PORT);
+    console.log('Server started at port  ', process.env.PORT);
 });
